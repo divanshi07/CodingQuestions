@@ -1,14 +1,18 @@
 class Solution:
     def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:
-        boxTypes.sort(key=lambda box: box[1], reverse=True)
-        
-        totalUnits = 0
-        for numberOfBoxes, unitsPerBox in boxTypes:
-            # Take as many boxes until we're out of space on the truck
-            # or we're out of boxes of this type
-            numBoxes = min(truckSize, numberOfBoxes)
-            totalUnits += numBoxes * unitsPerBox
-            truckSize -= numBoxes
-        return totalUnits
+        mySortedArr=sorted(boxTypes, key=lambda x: x[1], reverse=True)
+        i=0
+        myAmount=0
+        while(truckSize>0 and i<len(mySortedArr)):
+            if(truckSize>=mySortedArr[i][0]):
+                myAmount+=mySortedArr[i][0]*mySortedArr[i][1]
+                # print("first if",mySortedArr[i][0],mySortedArr[i][1])
+                truckSize-=mySortedArr[i][0]
+            elif(truckSize<mySortedArr[i][0]):
+                myAmount+=(truckSize)*mySortedArr[i][1]
+                # print("second if",mySortedArr[i][0]-truckSize,mySortedArr[i][1])
+                return myAmount
+            i+=1 
+        return myAmount
                 
                 
