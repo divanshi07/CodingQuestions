@@ -3,11 +3,10 @@ class Solution:
     dp=[-1]*46
     def climbStairs(self, n: int) -> int:
         global dp
-        if n<=2:
-            return n
-        if(dp[n]!=-1):
-            return dp[n]
-        ans = self.climbStairs(n-1)+self.climbStairs(n-2)
-        dp[n]=ans
+        dp[0]=0
+        dp[1]=1
+        dp[2]=2
+        for i in range(3,n+1):
+            dp[i]=dp[i-1]+dp[i-2]
         return dp[n]
         
